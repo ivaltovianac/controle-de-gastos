@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle de Gastos - Login</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#38bdf8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <style>
+        :root {
+            --color-bg-base: #0f172a;
+            --color-bg-elevated: #020617;
+            --color-bg-surface: #1e293b;
+            --color-bg-muted: #334155;
+            --color-text-primary: #f1f5f9;
+            --color-text-secondary: #cbd5e1;
+            --color-text-muted: #94a3b8;
+            --color-text-accent: #38bdf8;
+            --color-primary: #38bdf8;
+            --color-primary-hover: #0ea5e9;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-error: #ef4444;
+            --color-border: rgba(148, 163, 184, 0.3);
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --color-bg-base: #ffffff;
+                --color-bg-elevated: #f8fafc;
+                --color-bg-surface: #f1f5f9;
+                --color-bg-muted: #e2e8f0;
+                --color-text-primary: #0f172a;
+                --color-text-secondary: #475569;
+                --color-text-muted: #64748b;
+                --color-text-accent: #0284c7;
+                --color-primary: #0284c7;
+                --color-primary-hover: #0369a1;
+                --color-success: #059669;
+                --color-warning: #d97706;
+                --color-error: #dc2626;
+                --color-border: rgba(148, 163, 184, 0.3);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--color-bg-base);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h1 {
+            color: var(--color-primary);
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            background: var(--color-bg-base);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            color: var(--color-text-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+        }
+
+        button {
+            width: 100%;
+            background: var(--color-primary);
+            color: var(--color-bg-base);
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: var(--color-primary-hover);
+        }
+
+        button.btn-secondary {
+            background: var(--color-bg-muted);
+            color: var(--color-text-primary);
+            margin-top: 10px;
+        }
+
+        button.btn-secondary:hover {
+            background: var(--color-border);
+        }
+
+        button.btn-danger {
+            background: var(--color-error);
+            color: white;
+        }
+
+        button.btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--color-error);
+            color: var(--color-error);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--color-success);
+            color: var(--color-success);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .dashboard-header {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .user-info h2 {
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .user-info p {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .logout-btn {
+            width: auto;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        .card {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--color-text-accent);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--color-primary);
+        }
+
+        h3 {
+            color: var(--color-text-accent);
+            font-size: 1.2rem;
+            margin: 20px 0 15px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .pessoa-card {
+            background: var(--color-bg-muted);
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid var(--color-primary);
+        }
+
+        .pessoa-card h3 {
+            margin-top: 0;
+        }
+
+        .percentage-badge {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--color-bg-base);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .stat-box {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .stat-box:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-size: 1rem;
+        }
+
+        .stat-value.positive {
+            color: var(--color-success);
+        }
+
+        .stat-value.negative {
+            color: var(--color-error);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        th {
+            background: var(--color-bg-muted);
+            color: var(--color-text-accent);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: var(--color-bg-muted);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .summary-item {
+            background: var(--color-bg-muted);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .summary-item .label {
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .summary-item .value {
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .alert {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid var(--color-warning);
+            color: var(--color-warning);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .alert ul {
+            margin: 10px 0 0 20px;
+        }
+
+        .instrucoes {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid var(--color-primary);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .instrucoes h4 {
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        .instrucoes ol {
+            margin-left: 25px;
+            color: var(--color-text-secondary);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-group button {
+            width: auto;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .logout-btn {
+                width: 100%;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th,
+            td {
+                padding: 8px 4px;
+                font-size: 0.8rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn-group button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login-screen" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>🏠 Controle de Gastos</h1>
+                <p>Acesse sua área pessoal</p>
+            </div>
+
+            <div id="login-error" class="error-message hidden"></div>
+
+            <form id="login-form" onsubmit="fazerLogin(event)">
+                <div class="input-group">
+                    <label for="login-usuario">Usuário</label>
+                    <input type="text" id="login-usuario" required autocomplete="username">
+                </div>
+
+                <div class="input-group">
+                    <label for="login-senha">Senha</label>
+                    <input type="password" id="login-senha" required autocomplete="current-password">
+                </div>
+
+                <button type="submit">Entrar</button>
+            </form>
+
+            <button class="btn-secondary" onclick="mostrarCadastro()">Criar Nova Conta</button>
+        </div>
+    </div>
+
+    <div id="cadastro-screen" class="login-container hidden">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>📝 Criar Conta</h1>
+                <p>Cadastre-se no sistema</p>
+            </div>
+
+            <div id="cadastro-error" class="error-message hidden"></div>
+            <div id="cadastro-success" class="success-message hidden"></div>
+
+            <form id="cadastro-form" onsubmit="cadastrarUsuario(event)">
+                <div class="input-group">
+                    <label for="cadastro-nome">Nome Completo</label>
+                    <input type="text" id="cadastro-nome" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="cadastro-usuario">Usuário</label>
+                    <input type="text" id="cadastro-usuario" required autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label for="cadastro-senha">Senha</label>
+                    <input type="password" id="cadastro-senha" required autocomplete="new-password" minlength="4">
+                </div>
+
+                <div class="input-group">
+                    <label for="cadastro-renda">Renda Mensal (R$)</label>
+                    <input type="number" id="cadastro-renda" step="0.01" min="0" required>
+                </div>
+
+                <button type="submit">Cadastrar</button>
+            </form>
+
+            <button class="btn-secondary" onclick="voltarLogin()">Voltar ao Login</button>
+        </div>
+    </div>
+
+    <div id="dashboard-screen" class="hidden">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <h2 id="usuario-nome-display">Bem-vindo!</h2>
+                    <p id="usuario-info-display">Carregando informações...</p>
+                </div>
+                <button class="logout-btn btn-danger" onclick="fazerLogout()">Sair</button>
+            </div>
+
+            <section class="card">
+                <h2>👤 Minhas Informações</h2>
+                <div class="grid-3">
+                    <div class="pessoa-card">
+                        <h3>Renda Mensal <span class="percentage-badge" id="meu-percentual">0%</span></h3>
+                        <div class="input-group">
+                            <label>Renda Mensal (R$)</label>
+                            <input type="number" id="editar-renda" step="0.01" min="0" onchange="atualizarMinhaRenda()">
+                        </div>
+                    </div>
+                    <div class="pessoa-card">
+                        <h3>Meus Gastos</h3>
+                        <div class="stat-box">
+                            <span class="stat-label">Total Mensal</span>
+                            <span class="stat-value" id="meus-gastos">R$ 0,00</span>
+                        </div>
+                    </div>
+                    <div class="pessoa-card">
+                        <h3>Sobra Livre</h3>
+                        <div class="stat-box">
+                            <span class="stat-label">Disponível</span>
+                            <span class="stat-value positive" id="minha-sobra">R$ 0,00</span>
+                        </div>
+                    </div>
+                    <div class="pessoa-card" id="repasse-card" style="display: none;">
+                        <h3>💸 Repasse</h3>
+                        <div class="stat-box">
+                            <span class="stat-label">Valor a repassar</span>
+                            <span class="stat-value" id="meu-repasse">R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>🏠 Visão Geral da Casa</h2>
+
+                <h3>Rendas da Casa</h3>
+                <div id="rendas-container" class="grid-3"></div>
+
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="label">Total Familiar</div>
+                        <div class="value" id="total-familiar">R$ 0,00</div>
+                    </div>
+                </div>
+
+                <h3>💰 Repasses para Pessoa 3 (Aluguel)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pessoa</th>
+                            <th>Percentual</th>
+                            <th>Valor do Aluguel</th>
+                        </tr>
+                    </thead>
+                    <tbody id="repasses-body"></tbody>
+                </table>
+            </section>
+
+            <section class="card">
+                <h2>💰 Gastos Compartilhados</h2>
+
+                <h3>Gastos Fixos</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Gasto</th>
+                            <th>Valor Total</th>
+                            <th>Minha Parte</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gastos-fixos-body"></tbody>
+                </table>
+
+                <h3>Gastos Extras</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Gasto</th>
+                            <th>Valor Total</th>
+                            <th>Minha Parte</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gastos-extras-body">
+                        <tr>
+                            <td colspan="3" style="text-align: center; color: var(--color-text-muted);">Nenhum gasto
+                                extra adicionado</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert">
+                    <strong>⚠️ Observações Importantes:</strong>
+                    <ul id="observacoes-lista"></ul>
+                </div>
+            </section>
+
+            <section id="admin-section" class="card hidden">
+                <h2>⚙️ Administração</h2>
+
+                <h3>Adicionar Gasto Extra</h3>
+                <div class="instrucoes">
+                    <h4>📖 Como funciona:</h4>
+                    <ol>
+                        <li>Adicione o nome do gasto compartilhado</li>
+                        <li>Informe o valor total</li>
+                        <li>O sistema calculará automaticamente a divisão proporcional</li>
+                    </ol>
+                </div>
+
+                <div class="input-group">
+                    <label>Nome do Gasto</label>
+                    <input type="text" id="novo-gasto-nome" placeholder="Ex: Gás de cozinha">
+                </div>
+                <div class="input-group">
+                    <label>Valor Total (R$)</label>
+                    <input type="number" id="novo-gasto-valor" placeholder="0.00" step="0.01" min="0">
+                </div>
+                <button onclick="adicionarGasto()">Adicionar Gasto</button>
+
+                <div class="btn-group" style="margin-top: 30px;">
+                    <button onclick="resetarPadrao()" class="btn-secondary">Restaurar Valores Padrão</button>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>📊 Resumo Financeiro</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="label">Total de Gastos</div>
+                        <div class="value" id="total-gastos-resumo">R$ 0,00</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="label">Sobras da Família</div>
+                        <div class="value positive" id="sobras-familia">R$ 0,00</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="label">% de Sobra</div>
+                        <div class="value positive" id="percentual-sobra">0%</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        let usuarios = [
+            { usuario: 'pessoa1', senha: '1234', nome: 'Pessoa 1', renda: 3807.29, admin: true },
+            { usuario: 'pessoa2', senha: '1234', nome: 'Pessoa 2', renda: 3200.00, admin: false },
+            { usuario: 'pessoa3', senha: '1234', nome: 'Pessoa 3', renda: 1800.00, admin: false },
+            { usuario: 'pessoa4', senha: '1234', nome: 'Pessoa 4', renda: 1200.00, admin: false }
+        ];
+
+        let gastosFixos = [
+            { nome: 'Aluguel', valor: 1300.00 },
+            { nome: 'Água e Luz', valor: 135.83 },
+            { nome: 'Internet', valor: 140.00 }
+        ];
+
+        let gastosExtras = [];
+
+        let observacoes = [
+            'Alimentação (R$ 640): Já incluída no salário da Pessoa 1 via cartão/vale',
+            'Aluguel (R$ 1300): descontado DIRETO do salário da Pessoa 3 - NÃO entra no cálculo de gastos dela'
+        ];
+
+        let usuarioLogado = null;
+
+        function carregarDados() {
+            const usuariosSalvos = JSON.parse(localStorage.getItem('usuarios') || 'null');
+            const gastosSalvos = JSON.parse(localStorage.getItem('gastosFixos') || 'null');
+            const extrasSalvos = JSON.parse(localStorage.getItem('gastosExtras') || 'null');
+            const obsSalvas = JSON.parse(localStorage.getItem('observacoes') || 'null');
+
+            if (usuariosSalvos) usuarios = usuariosSalvos;
+            if (gastosSalvos) gastosFixos = gastosSalvos;
+            if (extrasSalvos) gastosExtras = extrasSalvos;
+            if (obsSalvas) observacoes = obsSalvas;
+        }
+
+        function salvarDados() {
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            localStorage.setItem('gastosFixos', JSON.stringify(gastosFixos));
+            localStorage.setItem('gastosExtras', JSON.stringify(gastosExtras));
+            localStorage.setItem('observacoes', JSON.stringify(observacoes));
+        }
+
+        function calcularPercentuais() {
+            const totalFamiliar = usuarios.reduce((sum, u) => sum + u.renda, 0);
+            return usuarios.map(u => ({
+                ...u,
+                percentual: totalFamiliar > 0 ? (u.renda / totalFamiliar) * 100 : 0
+            }));
+        }
+
+        function formatarMoeda(valor) {
+            return `R$ ${valor.toFixed(2).replace('.', ',')}`;
+        }
+
+        function fazerLogin(event) {
+            event.preventDefault();
+
+            const usuario = document.getElementById('login-usuario').value.trim();
+            const senha = document.getElementById('login-senha').value;
+
+            const usuarioEncontrado = usuarios.find(u => u.usuario === usuario && u.senha === senha);
+
+            if (usuarioEncontrado) {
+                usuarioLogado = usuarioEncontrado;
+                sessionStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+                mostrarDashboard();
+            } else {
+                mostrarErro('login-error', 'Usuário ou senha incorretos');
+            }
+        }
+
+        function mostrarCadastro() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('cadastro-screen').classList.remove('hidden');
+        }
+
+        function voltarLogin() {
+            document.getElementById('cadastro-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            limparErros();
+        }
+
+        function cadastrarUsuario(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('cadastro-nome').value.trim();
+            const usuario = document.getElementById('cadastro-usuario').value.trim();
+            const senha = document.getElementById('cadastro-senha').value;
+            const renda = parseFloat(document.getElementById('cadastro-renda').value) || 0;
+
+            if (!nome || !usuario || !senha) {
+                mostrarErro('cadastro-error', 'Por favor, preencha todos os campos.');
+                return;
+            }
+
+            if (renda <= 0) {
+                mostrarErro('cadastro-error', 'Por favor, insira uma renda válida (maior que zero).');
+                return;
+            }
+
+            if (usuarios.find(u => u.usuario === usuario)) {
+                mostrarErro('cadastro-error', 'Este nome de usuário já existe');
+                return;
+            }
+
+            if (senha.length < 4) {
+                mostrarErro('cadastro-error', 'A senha deve ter pelo menos 4 caracteres.');
+                return;
+            }
+
+            usuarios.push({ usuario, senha, nome, renda, admin: false });
+            salvarDados();
+
+            mostrarSucesso('cadastro-success', 'Conta criada com sucesso! Faça login para continuar.');
+            document.getElementById('cadastro-form').reset();
+
+            setTimeout(() => voltarLogin(), 2000);
+        }
+
+        function mostrarDashboard() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('cadastro-screen').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('hidden');
+            renderizarDashboard();
+        }
+
+        function fazerLogout() {
+            usuarioLogado = null;
+            sessionStorage.removeItem('usuarioLogado');
+            document.getElementById('dashboard-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('login-form').reset();
+            limparErros();
+        }
+
+        function atualizarMinhaRenda() {
+            const novaRenda = parseFloat(document.getElementById('editar-renda').value) || 0;
+
+            if (novaRenda <= 0) {
+                alert('Por favor, insira uma renda válida (maior que zero).');
+                return;
+            }
+
+            const usuario = usuarios.find(u => u.usuario === usuarioLogado.usuario);
+            if (usuario) {
+                usuario.renda = novaRenda;
+                usuarioLogado.renda = novaRenda;
+                salvarDados();
+                sessionStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+                renderizarDashboard();
+            }
+        }
+
+        function renderizarDashboard() {
+            if (!usuarioLogado) return;
+
+            const pessoasComPerc = calcularPercentuais();
+            const usuarioAtual = pessoasComPerc.find(u => u.usuario === usuarioLogado.usuario);
+
+            if (!usuarioAtual) {
+                fazerLogout();
+                return;
+            }
+
+            const todosGastos = [...gastosFixos, ...gastosExtras];
+            const aluguel = gastosFixos.find(g => g.nome === 'Aluguel');
+
+            document.getElementById('usuario-nome-display').textContent = `Olá, ${usuarioLogado.nome}!`;
+            document.getElementById('usuario-info-display').textContent = `@${usuarioLogado.usuario} ${usuarioLogado.admin ? '• Administrador' : ''}`;
+
+            if (usuarioLogado.admin) {
+                document.getElementById('admin-section').classList.remove('hidden');
+            } else {
+                document.getElementById('admin-section').classList.add('hidden');
+            }
+
+            document.getElementById('editar-renda').value = usuarioAtual.renda;
+
+            let meusTotaisGastos = 0;
+            todosGastos.forEach(gasto => {
+                if (gasto.nome === 'Aluguel' && usuarioAtual.usuario === 'pessoa3') {
+                    return;
+                }
+                meusTotaisGastos += gasto.valor * (usuarioAtual.percentual / 100);
+            });
+
+            const minhaSobra = usuarioAtual.renda - meusTotaisGastos - 640;
+
+            let meuRepasse = 0;
+            if (aluguel && usuarioAtual.usuario !== 'pessoa3') {
+                meuRepasse = aluguel.valor * (usuarioAtual.percentual / 100);
+                document.getElementById('repasse-card').style.display = 'block';
+                document.getElementById('meu-repasse').textContent = formatarMoeda(meuRepasse);
+            } else {
+                document.getElementById('repasse-card').style.display = 'none';
+            }
+
+            document.getElementById('meu-percentual').textContent = `${usuarioAtual.percentual.toFixed(1)}%`;
+            document.getElementById('meus-gastos').textContent = formatarMoeda(meusTotaisGastos);
+            document.getElementById('minha-sobra').textContent = formatarMoeda(minhaSobra);
+
+            const rendasContainer = document.getElementById('rendas-container');
+            rendasContainer.innerHTML = '';
+            pessoasComPerc.forEach(pessoa => {
+                const div = document.createElement('div');
+                div.className = 'pessoa-card';
+                div.innerHTML = `
+                    <h3>${pessoa.nome} <span class="percentage-badge">${pessoa.percentual.toFixed(1)}%</span></h3>
+                    <div class="stat-box">
+                        <span class="stat-label">Renda</span>
+                        <span class="stat-value">${formatarMoeda(pessoa.renda)}</span>
+                    </div>
+                `;
+                rendasContainer.appendChild(div);
+            });
+
+            const totalFamiliar = usuarios.reduce((sum, u) => sum + u.renda, 0);
+            document.getElementById('total-familiar').textContent = formatarMoeda(totalFamiliar);
+
+            const repassesBody = document.getElementById('repasses-body');
+            repassesBody.innerHTML = '';
+            if (aluguel) {
+                pessoasComPerc.forEach(pessoa => {
+                    if (pessoa.usuario !== 'pessoa3') {
+                        const valorRepasse = aluguel.valor * (pessoa.percentual / 100);
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${pessoa.nome}</td>
+                            <td>${pessoa.percentual.toFixed(1)}%</td>
+                            <td><strong>${formatarMoeda(valorRepasse)}</strong></td>
+                        `;
+                        repassesBody.appendChild(tr);
+                    }
+                });
+            }
+
+            const gastosFixosBody = document.getElementById('gastos-fixos-body');
+            gastosFixosBody.innerHTML = '';
+            gastosFixos.forEach(gasto => {
+                const minhaParte = gasto.valor * (usuarioAtual.percentual / 100);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${gasto.nome}</td>
+                    <td>${formatarMoeda(gasto.valor)}</td>
+                    <td><strong>${formatarMoeda(minhaParte)}</strong></td>
+                `;
+                gastosFixosBody.appendChild(tr);
+            });
+
+            const gastosExtrasBody = document.getElementById('gastos-extras-body');
+            gastosExtrasBody.innerHTML = '';
+            if (gastosExtras.length === 0) {
+                gastosExtrasBody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--color-text-muted);">Nenhum gasto extra adicionado</td></tr>';
+            } else {
+                gastosExtras.forEach(gasto => {
+                    const minhaParte = gasto.valor * (usuarioAtual.percentual / 100);
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${gasto.nome}</td>
+                        <td>${formatarMoeda(gasto.valor)}</td>
+                        <td><strong>${formatarMoeda(minhaParte)}</strong></td>
+                    `;
+                    gastosExtrasBody.appendChild(tr);
+                });
+            }
+
+            const obsLista = document.getElementById('observacoes-lista');
+            obsLista.innerHTML = '';
+            observacoes.forEach(obs => {
+                const li = document.createElement('li');
+                li.textContent = obs;
+                obsLista.appendChild(li);
+            });
+
+            const totalGastos = todosGastos.reduce((sum, g) => sum + g.valor, 0);
+            const sobrasFamilia = totalFamiliar - totalGastos;
+            const percSobraFamilia = totalFamiliar > 0 ? (sobrasFamilia / totalFamiliar) * 100 : 0;
+
+            document.getElementById('total-gastos-resumo').textContent = formatarMoeda(totalGastos);
+            document.getElementById('sobras-familia').textContent = formatarMoeda(sobrasFamilia);
+            document.getElementById('percentual-sobra').textContent = `${percSobraFamilia.toFixed(1)}%`;
+        }
+
+        function adicionarGasto() {
+            if (!usuarioLogado || !usuarioLogado.admin) {
+                alert('Apenas administradores podem adicionar gastos');
+                return;
+            }
+
+            const nome = document.getElementById('novo-gasto-nome').value.trim();
+            const valor = parseFloat(document.getElementById('novo-gasto-valor').value) || 0;
+
+            if (!nome) {
+                alert('Por favor, informe o nome do gasto.');
+                return;
+            }
+
+            if (valor <= 0) {
+                alert('Por favor, informe um valor válido (maior que zero).');
+                return;
+            }
+
+            gastosExtras.push({ nome, valor });
+            salvarDados();
+
+            document.getElementById('novo-gasto-nome').value = '';
+            document.getElementById('novo-gasto-valor').value = '';
+
+            renderizarDashboard();
+        }
+
+        function resetarPadrao() {
+            if (!usuarioLogado || !usuarioLogado.admin) {
+                alert('Apenas administradores podem resetar dados');
+                return;
+            }
+
+            if (confirm('Deseja restaurar os valores padrão? Isso removerá todos os gastos extras.')) {
+                gastosExtras = [];
+                salvarDados();
+                renderizarDashboard();
+            }
+        }
+
+        function mostrarErro(elementId, mensagem) {
+            const el = document.getElementById(elementId);
+            el.textContent = mensagem;
+            el.classList.remove('hidden');
+        }
+
+        function mostrarSucesso(elementId, mensagem) {
+            const el = document.getElementById(elementId);
+            el.textContent = mensagem;
+            el.classList.remove('hidden');
+        }
+
+        function limparErros() {
+            document.getElementById('login-error').classList.add('hidden');
+            document.getElementById('cadastro-error').classList.add('hidden');
+            document.getElementById('cadastro-success').classList.add('hidden');
+        }
+
+        window.addEventListener('load', () => {
+            carregarDados();
+
+            const sessao = sessionStorage.getItem('usuarioLogado');
+            if (sessao) {
+                try {
+                    usuarioLogado = JSON.parse(sessao);
+                    mostrarDashboard();
+                } catch (e) {
+                    console.error('Erro ao carregar sessão:', e);
+                    sessionStorage.removeItem('usuarioLogado');
+                }
+            }
+        });
+
+        // Service Worker opcional - removido para evitar erro sem arquivo
+        // if ('serviceWorker' in navigator) {
+        //     navigator.serviceWorker.register('/sw.js').catch(() => {});
+        // }
+    </script>
+</body>
+
+</html>
